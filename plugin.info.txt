@@ -1,0 +1,7 @@
+base   bibliography
+author Samuel Gyger
+email  samuel@gyger.tech
+date   2020-02-16
+name   bibliography plugin
+desc   Cite your informations in your wiki based on different citation providers.
+url    https://samuel.gyger.at/projects/bibliography
