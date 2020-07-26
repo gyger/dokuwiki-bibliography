@@ -31,21 +31,14 @@ on how to install plugins in DokuWiki.
 
 Libraries
 =========
-- `citation-style-language`_
-- `citeproc-php`_
-- `hedii/zotero-api`_
-
-.. _citation-style-language: https://github.com/citation-style-language
-.. _citeproc-php: https://github.com/seboettg/citeproc-php
-.. _hedii/zotero-api: https://github.com/hedii/zotero-api/blob/master/src/ZoteroApi.php
+- `citation-style-language <https://github.com/citation-style-language>`_
+- `citeproc-php <https://github.com/seboettg/citeproc-php>`_
+- `hedii/zotero-api <https://github.com/hedii/zotero-api/>`_
 
 Plugins I looked into to see how it is done.
 ============================================
-- `plugin:zotero`_
-- `plugin:refnotes`_
-
-.. _plugin:zotero: https://www.dokuwiki.org/plugin:zotero
-.. _plugin:refnotes: https://www.dokuwiki.org/plugin:refnotes
+- `plugin:zotero <https://www.dokuwiki.org/plugin:zotero>`_
+- `plugin:refnotes <https://www.dokuwiki.org/plugin:refnotes>`_
 
 ----
 Copyright (C) Samuel Gyger <samuel@gyger.tech>
