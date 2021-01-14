@@ -13,6 +13,8 @@ use dokuwiki\plugin\bibliography\meta\data\Library as Library;
  */
 class ZoteroDataProvider extends DataProvider{
 
+  public static $provider_name = "Zotero";
+
   /**
    * @var int
    */  
@@ -93,6 +95,8 @@ class ZoteroDataProvider extends DataProvider{
    */
   public function updateDatasource() {
     $changed_keys = $this->getModifiedItems();
+    if (!$changed_keys) { return FALSE; }
+
     $database_version = $this->updateItems($changed_keys);
     
     $changed = $database_version > $this->version;
@@ -169,7 +173,10 @@ class ZoteroDataProvider extends DataProvider{
     }
     
     $response = $call->items()->top()->versions()->since($this->version)->send();
-    if(!$response->response) {msg("Error getting updated items. ".$response->response->error." ".$response->getPath()); return FALSE;}
+    if(!$response->response) {
+      msg("Error getting updated items. Status Code: ".$response->response->status." Error ".$response->response->error." Request URL: ".$response->getPath(), -1); 
+      return FALSE;
+    }
 
     $updated_items = $response->getBody();
 
@@ -179,11 +186,13 @@ class ZoteroDataProvider extends DataProvider{
                          $db->quote_and_join(array_keys($updated_items), $sep=',').
                          ")",
                          $this->source_id);
+
     while ($row = $db->res2row($result)) {
       if ($updated_items[$row['datasource_item_id']] == $row['last_modified']) {
         unset($updated_items[$row['datasource_item_id']]); # Remove up-to-date version
       }
     }
+
     $db->res_close($result);
     return array_keys($updated_items);
   }

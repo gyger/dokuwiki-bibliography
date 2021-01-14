@@ -68,7 +68,11 @@ class syntax_plugin_bibliography_bibliography extends \DokuWiki_Syntax_Plugin
         $render_data = array();
 
         if (null == $this->bibliography) {
-            $this->bibliography = Plugin\Bibliography::getInstance($this->getConf('citation-style'));
+            try {
+                $this->bibliography = Plugin\Bibliography::getInstance($this->getConf('citation-style'));
+            } catch(Plugin\BibliographyException $e) {
+                msg(hsc($e->getMessage()), -1);
+            }
         }
         $render_data['css'] = $this->bibliography->css_styles;
         $render_data['bibliography'] = $this->bibliography->getBibliography();

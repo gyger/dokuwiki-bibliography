@@ -13,8 +13,12 @@ class DataLoader{
 
   protected $provider = array();
 
+  public static $provider_types = array(
+                                    "zotero"=>"dokuwiki\plugin\bibliography\meta\data\zotero\ZoteroDataProvider",
+                                  );
+
   public function __construct($backoff_time='1 second'){
-    $db = Library::getInstance()->sqlite;
+    $db = Library::getInstance()->sqlite; //Perhaps use res 2 array
     $result = $db->query("SELECT id, source_name, dataprovider_type, access_data, last_modified, last_updated ".
                          "FROM datasources WHERE enabled == TRUE"
                         );
@@ -26,8 +30,8 @@ class DataLoader{
       if ($last_updated->add($backoff_time) > new DateTime()) {continue;}
 
       switch ($row['dataprovider_type']) {
-        case 'zotero':  $provider = new ZoteroDataProvider($row['id'], $row['access_data'], 
-                                                           $row['last_modified'], $row['last_updated']);
+        case 'zotero':  $provider = new $provider_types['zotero']($row['id'], $row['access_data'], 
+                                                                  $row['last_modified'], $row['last_updated']);
                         break;
         default:        break; // Provider not supported.
       }
@@ -35,6 +39,14 @@ class DataLoader{
         $this->provider[$row['source_name']] = $provider;
       }
     }
+  }
+  
+  public static function get_datasources() {
+    $db = Library::getInstance()->sqlite;
+    $result = $db->query("SELECT id, source_name, dataprovider_type, enabled, access_data, last_modified, last_updated ".
+                         "FROM datasources" # TODO Future add the posibility to have deleted entries:  WHERE deleted == FALSE
+                        );
+    return $db->res2arr($result);
   }
 
   /**

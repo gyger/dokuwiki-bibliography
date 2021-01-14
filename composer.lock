@@ -69,6 +69,10 @@
             "keywords": [
                 "enum"
             ],
+            "support": {
+                "issues": "https://github.com/myclabs/php-enum/issues",
+                "source": "https://github.com/myclabs/php-enum/tree/master"
+            },
             "time": "2019-02-04T21:18:49+00:00"
         },
         {
@@ -118,6 +122,10 @@
                 }
             ],
             "description": "Full-featured CSL processor (https://citationstyles.org)",
+            "support": {
+                "issues": "https://github.com/seboettg/citeproc-php/issues",
+                "source": "https://github.com/seboettg/citeproc-php/tree/v2.2.0"
+            },
             "time": "2020-04-04T16:44:33+00:00"
         },
         {
@@ -155,6 +163,10 @@
                 }
             ],
             "description": "Simple PHP ArrayList collection",
+            "support": {
+                "issues": "https://github.com/seboettg/Collection/issues",
+                "source": "https://github.com/seboettg/Collection/tree/v1.3.1"
+            },
             "time": "2019-02-13T07:13:15+00:00"
         },
         {
@@ -214,6 +226,9 @@
                 "portable",
                 "shim"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/master"
+            },
             "time": "2018-09-21T13:07:52+00:00"
         }
     ],
@@ -233,5 +248,5 @@
     "platform-overrides": {
         "php": "5.6"
     },
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

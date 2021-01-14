@@ -50,6 +50,12 @@ class syntax_plugin_bibliography_references extends \DokuWiki_Syntax_Plugin
         $this->Lexer->addSpecialPattern('\\\cite.*?\}', $mode, 'plugin_bibliography_references');
     }
 
+    protected function _addLinksorDOI($text) 
+    {
+        $text = preg_replace( '!((http(s)?://)[-a-zA-Z?-??-?()0-9@:%_+.~#?&;//=]+)!i', '<br> <a href="$1">$1</a>', $text );
+        return $text;
+    }
+
     /**
      * Handle matches of the bibliography syntax
      *
@@ -59,6 +65,8 @@ class syntax_plugin_bibliography_references extends \DokuWiki_Syntax_Plugin
      * @param Doku_Handler $handler The handler
      *
      * @return array Data for the renderer
+     * 
+     * @todo Needs to support citation of multiple keys.
      */
     public function handle($match, $state, $pos, Doku_Handler $handler)
     {
@@ -84,8 +92,7 @@ class syntax_plugin_bibliography_references extends \DokuWiki_Syntax_Plugin
         if (null == $this->bibliography) {
             $this->bibliography = Plugin\Bibliography::getInstance($this->getConf('citation-style'));
         }
-        $citation = $this->bibliography->getCitation($data['reference_key']);
-
+        list($citation, $bibliography) = $this->bibliography->getCitation($data['reference_key'], TRUE, TRUE);
         if(!$citation) {
           $render_data['error'] = True;
           $render_data['message'] = "unknown cite key: " . $citeKey;
@@ -95,6 +102,9 @@ class syntax_plugin_bibliography_references extends \DokuWiki_Syntax_Plugin
         $render_data['error'] = False;
         $render_data['message'] = $citeKey . " " . $notes;
         $render_data['citation'] = $citation;
+        
+        #FIXME Goal would be to link https:// urls.
+        $render_data['inlineBibliography'] = $this->_addLinksorDOI(strip_tags($bibliography));
 
         return $render_data;
     }
@@ -114,8 +124,9 @@ class syntax_plugin_bibliography_references extends \DokuWiki_Syntax_Plugin
         if ($data['error']) {
             $renderer->doc .= $data['message'];
         }
-
+        
         $renderer->doc .= $data['citation'];
+        $renderer->doc .= '<span class="inlineBibliography">'.$data['inlineBibliography'].'</span>';
         return true;
     }
 }

@@ -42,12 +42,12 @@ class Bibliography{
     $additionalMarkup = [
       "bibliography" => [
           "csl-entry" => function($cslItem, $renderedText) {
-              return '<a id="' . $cslItem->id .'" href="#' . $cslItem->id .'"></a>' . $renderedText;
+              return '<a id="' . $cslItem->id .'">"</a>"' . $renderedText;
           }
       ],
       "citation" => [
-          "citation-number" => function($cslItem, $renderedText) {
-              return '<a href="#' . $cslItem->id .'">'.$renderedText.'</a>';
+          "csl-entry" => function($cslItem, $renderedText) {
+                return '<a href="#' . $cslItem->id .'" class="reference">'.$renderedText.'</a>';
           }
       ]
     ];
@@ -55,7 +55,14 @@ class Bibliography{
   }
 
 
-  public function getCitation($refKey, $list=TRUE) {
+    /**
+     * BibliographyException constructor.
+     *
+     * @param string $refKey  The reference key as one would use in a BibTex ID.
+     * @param boolean $list  I do not remember anymore
+     * @param boolean $includeBibliographyLine  Also return the Bibliography line e.g. for a tooltip.
+     */
+  public function getCitation($refKey, $list=TRUE, $includeBibliographyLine=FALSE) {
     if (!$list || !in_array($refKey, $this->cited_keys)){
         $entry = $this->library->getEntry($refKey);
         if (!$entry) {
@@ -71,8 +78,16 @@ class Bibliography{
           $bibliography_array = array($current_entry);
         }
     }
-    return $this->citeproc->render($bibliography_array, "citation", 
-                                   json_decode("[{\"id\": \"$refKey\"}]"));
+    if(!$bibliography_array) {msg('Empty bibliography array, should not happen.', -1); return false;}
+    if(!$includeBibliographyLine){
+      return $this->citeproc->render($bibliography_array, "citation", 
+                                    json_decode("[{\"id\": \"$refKey\"}]"));
+    } else {
+      $cite_id = array_search($refKey, $this->cited_keys);
+      return array($this->citeproc->render($bibliography_array, "citation", 
+                                           json_decode("[{\"id\": \"$refKey\"}]")),
+                   $this->citeproc->render(array($bibliography_array[$cite_id]), "bibliography"));
+    }
   }
 
   public function getBibliography() {

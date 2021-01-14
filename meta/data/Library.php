@@ -33,10 +33,9 @@ class Library {
     $this->sqlite = plugin_load('helper', 'sqlite');
 
     if(!$this->sqlite) {
-      //TODO throw error no SQlite installed
-      msg('This plugin requires the sqlite plugin. Please enable/install it.', -1);
-      return;
+      throw new BibliographyException('no sqlite');
     }
+    
     if(!$this->sqlite->init('bibliography', DOKU_PLUGIN.'bibliography/db/')){
       return;
     }
