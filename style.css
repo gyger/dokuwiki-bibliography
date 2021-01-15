@@ -9,6 +9,7 @@ div.dokuwiki a.reference + span.inlineBibliography{
   color: #000;
   border:1px solid __border__;
   font-size:100%;
+  font-weight: normal;
   line-height:1.25em;
   padding:5px 5px 10px 10px;
   text-align:left;
@@ -22,4 +23,12 @@ div.dokuwiki a.reference + span.inlineBibliography:hover {
   position: absolute;
   width: 50%;
   z-index:99 !important;
+}
+
+div.dokuwiki span.bibliography-author{
+  font-weight: bolder;
+}
+
+div.dokuwiki span.inlineBibliography cite.bibliography-title{
+  display:block
 }

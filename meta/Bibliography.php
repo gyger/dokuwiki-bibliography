@@ -41,6 +41,12 @@ class Bibliography{
     //Fixme the links should work for different citation styles.
     $additionalMarkup = [
       "bibliography" => [
+          "author" => function($authorItem, $renderedText) {
+            return '<span class="bibliography-author">' .$renderedText . '</span>';
+          },
+          "title" => function($cslItem, $renderedText) {
+            return '<cite class="bibliography-title">' .$renderedText . '</cite>';
+          },
           "csl-entry" => function($cslItem, $renderedText) {
               return '<a id="' . $cslItem->id .'"></a>' . $renderedText;
           }
