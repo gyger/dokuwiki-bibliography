@@ -79,10 +79,10 @@ class SourceEditor
     protected function initJSONEditor()
     {
         $html = '';
-        $html .= '<link href="' . DOKU_BASE . 'lib/plugins/bibliography/jsoneditor/jsoneditor.min.css" rel="stylesheet" type="text/css">';
-        $html .= '<link href="' . DOKU_BASE . 'lib/plugins/bibliography/jsoneditor/setup.css" rel="stylesheet" type="text/css">';
-        $html .= '<script src="' . DOKU_BASE . 'lib/plugins/bibliography/jsoneditor/jsoneditor-minimalist.min.js" defer="defer"></script>';
-        $html .= '<script src="' . DOKU_BASE . 'lib/plugins/bibliography/jsoneditor/setup.js" defer="defer"></script>';
+        $html .= '<link href="' . DOKU_BASE . 'lib/plugins/bibliography/vendor/jsoneditor/jsoneditor.min.css" rel="stylesheet" type="text/css">';
+        $html .= '<link href="' . DOKU_BASE . 'lib/plugins/bibliography/vendor/jsoneditor/setup.css" rel="stylesheet" type="text/css">';
+        $html .= '<script src="' . DOKU_BASE . 'lib/plugins/bibliography/vendor/jsoneditor/jsoneditor-minimalist.min.js" defer="defer"></script>';
+        $html .= '<script src="' . DOKU_BASE . 'lib/plugins/bibliography/vendor/jsoneditor/setup.js" defer="defer"></script>';
         return $html;
     }
 

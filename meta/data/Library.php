@@ -1,6 +1,7 @@
 <?php
-
 namespace dokuwiki\plugin\bibliography\meta\data;
+
+use dokuwiki\plugin\bibliography\meta as Plugin;
 
 class Library {
 
@@ -33,7 +34,7 @@ class Library {
     $this->sqlite = plugin_load('helper', 'sqlite');
 
     if(!$this->sqlite) {
-      throw new BibliographyException('no sqlite');
+      throw new Plugin\BibliographyException('no sqlite');
     }
     
     if(!$this->sqlite->init('bibliography', DOKU_PLUGIN.'bibliography/db/')){
