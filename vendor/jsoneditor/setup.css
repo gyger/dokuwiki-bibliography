@@ -1,0 +1,17 @@
+#plugin__bibliography_source_editor .jsoneditor-menu {
+    display: none;
+}
+
+#plugin__bibliography_source_editor div.jsoneditor {
+    width: 350px;
+}
+
+#plugin__bibliography_source_editor div.jsoneditor table,
+#plugin__bibliography_source_editor div.jsoneditor tr,
+#plugin__bibliography_source_editor div.jsoneditor th,
+#plugin__bibliography_source_editor div.jsoneditor td,
+#plugin__bibliography_source_editor div.jsoneditor tbody,
+#plugin__bibliography_source_editor div.jsoneditor {
+    border: 0;
+    margin: 0;
+}
