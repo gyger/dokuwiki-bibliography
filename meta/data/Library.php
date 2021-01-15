@@ -50,7 +50,7 @@ class Library {
    */
   public function getEntry($refKey, $automatic_load=TRUE) {
     //FIXME Join and directly load last-modified
-    $res = $this->sqlite->query("SELECT id, refKey, datasource_id, csl FROM items WHERE refkey == ?", $refKey);
+    $res = $this->sqlite->query("SELECT id, refKey, datasource_id, csl FROM items WHERE refKey == ?", $refKey);
 
     $entry = $this->sqlite->res2row($res);
     $this->sqlite->res_close($res);
