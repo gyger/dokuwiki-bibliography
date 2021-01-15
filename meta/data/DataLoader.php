@@ -14,7 +14,7 @@ class DataLoader{
   protected $provider = array();
 
   public static $provider_types = array(
-                                    "zotero"=>"dokuwiki\plugin\bibliography\meta\data\zotero\ZoteroDataProvider",
+                                    'zotero'=>'dokuwiki\\plugin\\bibliography\\meta\\data\\zotero\\ZoteroDataProvider',
                                   );
 
   public function __construct($backoff_time='1 second'){
@@ -30,8 +30,8 @@ class DataLoader{
       if ($last_updated->add($backoff_time) > new DateTime()) {continue;}
 
       switch ($row['dataprovider_type']) {
-        case 'zotero':  $provider = new $provider_types['zotero']($row['id'], $row['access_data'], 
-                                                                  $row['last_modified'], $row['last_updated']);
+        case 'zotero':  $provider = new self::$provider_types['zotero']($row['id'], $row['access_data'], 
+                                                                        $row['last_modified'], $row['last_updated']);
                         break;
         default:        break; // Provider not supported.
       }
